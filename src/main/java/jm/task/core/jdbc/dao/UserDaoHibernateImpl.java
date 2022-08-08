@@ -1,12 +1,8 @@
 package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.util.Util;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class UserDaoHibernateImpl implements UserDao {
     public UserDaoHibernateImpl() {
@@ -43,7 +39,4 @@ public class UserDaoHibernateImpl implements UserDao {
 
     }
 
-    public void runInsideSession(Consumer<Session> consumer) {
-
-    }
 }

@@ -19,7 +19,13 @@ public class Util {
     private final static String LOGIN = "user";
     private final static String PASS = "password";
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(DB, LOGIN, PASS);
+    public static Connection getConnection() {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(DB, LOGIN, PASS);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return connection;
     }
 }
