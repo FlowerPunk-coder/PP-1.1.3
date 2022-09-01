@@ -13,9 +13,7 @@ import java.util.List;
 public class UserDaoJDBCImpl implements UserDao {
 
     private final Connection connection = Util.getConnection();
-    public UserDaoJDBCImpl() {
 
-    }
     public void createUsersTable() {
         try(final PreparedStatement createUserTable = connection.prepareStatement(
                     """
@@ -28,31 +26,17 @@ public class UserDaoJDBCImpl implements UserDao {
                     """
             ))
         {
-            connection.setAutoCommit(false);
             createUserTable.execute();
-            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-            try {
-                connection.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
     public void dropUsersTable() {
         try(final PreparedStatement dropUserTable = connection.prepareStatement("DROP TABLE IF EXISTS user;"))
         {
-            connection.setAutoCommit(false);
             dropUserTable.execute();
-            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-            try {
-                connection.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
     public void saveUser(String name, String lastName, byte age) {
@@ -113,18 +97,13 @@ public class UserDaoJDBCImpl implements UserDao {
         return users;
     }
     public void cleanUsersTable() {
-        try(final PreparedStatement cleanUserTable = connection.prepareStatement("TRUNCATE TABLE user"))
+        try(final PreparedStatement cleanUserTable = connection.prepareStatement("DELETE FROM user"))
         {
             connection.setAutoCommit(false);
             cleanUserTable.execute();
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-            try {
-                connection.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
